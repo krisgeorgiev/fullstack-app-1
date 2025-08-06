@@ -1,0 +1,41 @@
+# Node.js (for frontend or backend if using Node.js)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+build/
+
+# Python (in case your backend is Python/FastAPI)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+ENV/
+*.egg-info/
+.eggs/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# MongoDB
+*.log
+*.pid
+dump/
+data/
+
+# Docker
+*.tar
+*.pid
+docker-compose.override.yml
+
+# VSCode and OS files
+.vscode/
+*.DS_Store
+*.swp
+*.swo
+
+# Python virtual environments by name
+backend/venv/
+
