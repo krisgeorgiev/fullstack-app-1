@@ -1,4 +1,4 @@
-A simulated fullstack project for DevOps labs.
+A simulated fullstack project for DevOps lab
 
 ## Stack
 - Frontend: HTML/CSS/JavaScript
