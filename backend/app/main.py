@@ -1,9 +1,10 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from mongo.connection import messages_collection
 
 app = FastAPI()
 
-# Allows frontend to talk to backend (via CORS)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
@@ -12,17 +13,29 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Test route
+# Pydantic model for validation
+class Message(BaseModel):
+    message: str
+
 @app.get("/")
 def root():
     return {"message": "FastAPI is working!"}
 
-# POST route that the JS fetch() will call
 @app.post("/message")
-async def receive_message(request: Request):
-    body = await request.json()
-    message = body.get("message", "")
+async def receive_message(msg: Message):
+    print(f"[DEBUG] Received message: {msg.message}")
 
-    print(f"[DEBUG] Received message: {message}")  # Optional: see in terminal
+    # Insert message into MongoDB
+    messages_collection.insert_one({"message": msg.message})
 
-    return {"reply": f"Received: {message}"}
+    return {"reply": f"Stored: {msg.message}"}
+
+@app.get("/test-mongo")
+def test_mongo_connection():
+    try:
+        # List database names to check connection
+        db_names = messages_collection.database.client.list_database_names()
+        return {"status": "connected", "databases": db_names}
+    except Exception as e:
+        return {"status": "error", "details": str(e)}
+ 
