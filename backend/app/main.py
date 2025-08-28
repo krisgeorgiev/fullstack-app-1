@@ -7,7 +7,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -39,3 +39,14 @@ def test_mongo_connection():
     except Exception as e:
         return {"status": "error", "details": str(e)}
  
+from typing import List
+
+@app.get("/messages")
+def get_messages(limit: int = 10):
+    """
+    Return the latest messages from MongoDB.
+    - limit: how many items to return (default 10)
+    """
+    # Exclude _id so you don't leak ObjectId into JSON
+    cursor = messages_collection.find({}, {"_id": 0, "message": 1}).sort([("_id", -1)]).limit(limit)
+    return {"items": list(cursor)}
