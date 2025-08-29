@@ -1,0 +1,6 @@
+[flake8]
+# Maximum allowed characters per line (default is 79, here we allow 100)
+max-line-length = 100
+
+# Ignore these directories when linting
+exclude = .venv, __pycache__
