@@ -44,9 +44,6 @@ def test_mongo_connection():
         return {"status": "error", "details": str(e)}
 
 
-from typing import List
-
-
 @app.get("/messages")
 def get_messages(limit: int = 10):
     """
