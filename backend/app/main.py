@@ -13,13 +13,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # Pydantic model for validation
 class Message(BaseModel):
     message: str
 
+
 @app.get("/")
 def root():
     return {"message": "FastAPI is working!"}
+
 
 @app.post("/message")
 async def receive_message(msg: Message):
@@ -30,6 +33,7 @@ async def receive_message(msg: Message):
 
     return {"reply": f"Stored: {msg.message}"}
 
+
 @app.get("/test-mongo")
 def test_mongo_connection():
     try:
@@ -38,8 +42,10 @@ def test_mongo_connection():
         return {"status": "connected", "databases": db_names}
     except Exception as e:
         return {"status": "error", "details": str(e)}
- 
+
+
 from typing import List
+
 
 @app.get("/messages")
 def get_messages(limit: int = 10):
