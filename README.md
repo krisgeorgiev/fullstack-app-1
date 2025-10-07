@@ -21,20 +21,20 @@ From a DevOps perspective, the app is designed to be containerized and automated
 - Eventually, I plan to use **Ansible** for provisioning and configuration, and extend the CI/CD pipeline for deployments.
 
 
-# 1️ Create a virtual environment
+## 1️ Create a virtual environment
 python3 -m venv venv
 
-# 2️ Activate the environment
+## 2️ Activate the environment
 source venv/bin/activate
 
-# 3️ Install dependencies (if not already done)
+## 3️ Install dependencies (if not already done)
 pip install -r requirements.txt
 
-# 4️ Start the FastAPI app
+## 4️ Start the FastAPI app
 uvicorn app.main:app --reload
 
-# 5️ Test if the app is working
+## 5️ Test if the app is working
 curl http://127.0.0.1:8000/
 
-# 6️ When finished, deactivate the environment
+## 6️ When finished, deactivate the environment
 deactivate
